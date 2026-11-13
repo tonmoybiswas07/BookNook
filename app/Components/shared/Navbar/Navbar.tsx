@@ -53,7 +53,7 @@ export default function Navbar() {
           {/* Nav Links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
             <Link href="/" className={`transition-colors hover:text-indigo-600 ${isActive('/') ? 'text-indigo-600 font-semibold' : ''}`}>Home</Link>
-            <Link href="/books" className={`transition-colors hover:text-indigo-600 ${isActive('/books') ? 'text-indigo-600 font-semibold' : ''}`}>All Books</Link>
+            <Link href="/allBooks" className={`transition-colors hover:text-indigo-600 ${isActive('/books') ? 'text-indigo-600 font-semibold' : ''}`}>All Books</Link>
             
             
             {user && (

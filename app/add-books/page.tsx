@@ -61,7 +61,7 @@ export default function AddBookPage() {
       }
 
       toast.success("Book added successfully!");
-      router.push("/books"); 
+      router.push("/allBooks"); 
       router.refresh();
     } catch (err) {
       toast.error(err.message || "Something went wrong!");
