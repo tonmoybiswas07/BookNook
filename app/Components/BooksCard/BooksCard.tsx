@@ -44,7 +44,7 @@ export default function BooksCard({ book }) {
           </span>
 
           <Link
-            href={`/books/${book._id}`}
+            href={`/allBooks/${book._id}`}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2.5 rounded-xl shadow-sm shadow-indigo-100 transition-all"
           >
             View Details <ArrowRight className="w-3.5 h-3.5" />
