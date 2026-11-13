@@ -58,7 +58,7 @@ export default function Navbar() {
             
             {user && (
               <>
-                <Link href="/add-book" className={`transition-colors hover:text-indigo-600 ${isActive('/add-book') ? 'text-indigo-600 font-semibold' : ''}`}>Add Book</Link>
+                <Link href="/add-books" className={`transition-colors hover:text-indigo-600 ${isActive('/add-book') ? 'text-indigo-600 font-semibold' : ''}`}>Add Book</Link>
                 <Link href="/my-books" className={`transition-colors hover:text-indigo-600 ${isActive('/my-books') ? 'text-indigo-600 font-semibold' : ''}`}>My Books</Link>
                 <Link href="/my-borrows" className={`transition-colors hover:text-indigo-600 ${isActive('/my-borrows') ? 'text-indigo-600 font-semibold' : ''}`}>My Borrows</Link>
               </>
