@@ -19,7 +19,6 @@ import {
   Sparkles,
   UserRound,
   ArrowUpRight,
-  Settings2,
   LogOut,
   Loader2,
   Copy,
@@ -148,7 +147,7 @@ export default function ProfilePage() {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-indigo-100 backdrop-blur">
                 <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-                The Reader's Corner
+                The Reader&apos;s Corner
               </div>
 
               <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-200">

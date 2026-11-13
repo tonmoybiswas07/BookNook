@@ -1,72 +1,266 @@
 import Link from "next/link";
-import { BookOpen } from "lucide-react"; 
+
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaGithub,
+} from "react-icons/fa";
+import {
+  ArrowRight,
+  BookMarked,
+  BookOpen,
+  Heart,
+  LibraryBig,
+  Mail,
+  Sparkles,
+} from "lucide-react";
+
+const quickLinks = [
+  { label: "Home", href: "/" },
+  { label: "All Books", href: "/allBooks" },
+  { label: "Add a Book", href: "/add-books" },
+  { label: "My Books", href: "/my-books" },
+];
+
+const accountLinks = [
+  { label: "Sign In", href: "/Authentication/signin" },
+  { label: "Create Account", href: "/Authentication/signup" },
+  { label: "My Borrowed Books", href: "/myBorrow" },
+  { label: "My Profile", href: "/profile" },
+];
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://facebook.com",
+    icon: FaFacebookF,
+  },
+  {
+    label: "Instagram",
+    href: "https://instagram.com",
+    icon: FaInstagram,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com",
+    icon: FaLinkedinIn,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com",
+    icon: FaGithub,
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-100 text-gray-600">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          
-          
-          <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <BookOpen className="w-6 h-6 text-indigo-600" />
-              <span className="text-lg font-bold tracking-tight text-gray-900">BookNook</span>
-            </Link>
-            <p className="text-sm text-gray-500 max-w-sm">
-              Your gateway to endless stories. Discover, borrow, and share your favorite books effortlessly in one small online library.
-            </p>
+    <footer className="relative overflow-hidden bg-[#11152e] text-slate-300">
+      {/* Background Glow */}
+      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-indigo-600/10 blur-[110px]" />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-violet-600/10 blur-[110px]" />
+
+      {/* Top CTA */}
+      <div className="relative border-b border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center lg:px-8">
+          <div className="flex items-start gap-4">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-indigo-500/15 text-indigo-300">
+              <BookOpen size={27} />
+            </div>
+
+            <div>
+              <h2 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl">
+                Your next great story awaits.
+              </h2>
+
+              <p className="mt-2 max-w-lg text-sm leading-6 text-slate-400">
+                Explore a world of books, discover new perspectives, and find
+                your next favorite read with BookNook.
+              </p>
+            </div>
           </div>
 
-        
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/" className="hover:text-indigo-600 transition-colors">Home</Link></li>
-              <li><Link href="/books" className="hover:text-indigo-600 transition-colors">All Books</Link></li>
-              <li><Link href="/login" className="hover:text-indigo-600 transition-colors">Login</Link></li>
-              <li><Link href="/register" className="hover:text-indigo-600 transition-colors">Register</Link></li>
+          <Link
+            href="/allBooks"
+            className="group inline-flex shrink-0 items-center gap-3 rounded-2xl bg-indigo-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-950/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-500"
+          >
+            Explore Books
+            <ArrowRight
+              size={18}
+              className="transition-transform group-hover:translate-x-1"
+            />
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Footer */}
+      <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
+          <div>
+            <Link href="/" className="inline-flex items-center gap-3">
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-950/30">
+                <BookOpen size={25} />
+              </span>
+
+              <span className="text-2xl font-extrabold tracking-tight text-white">
+                Book
+                <span className="text-indigo-400">Nook</span>
+              </span>
+            </Link>
+
+            <p className="mt-6 max-w-sm text-sm leading-7 text-slate-400">
+              Your gateway to endless stories. Discover, borrow, and share books
+              effortlessly in one welcoming online library community.
+            </p>
+
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-xs font-semibold text-indigo-200">
+              <Sparkles size={14} />
+              Read More. Discover More.
+            </div>
+
+            {/* Social Links */}
+            <div className="mt-7 flex items-center gap-3">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/50 hover:bg-indigo-600 hover:text-white"
+                  >
+                    <Icon size={18} />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-white">
+              Quick Links
+            </h3>
+
+            <div className="mt-4 h-1 w-10 rounded-full bg-indigo-500" />
+
+            <ul className="mt-7 space-y-4">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="group inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-white"
+                  >
+                    <ArrowRight
+                      size={14}
+                      className="text-indigo-400 transition-transform group-hover:translate-x-1"
+                    />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-         
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Contact Us</h4>
-            <p className="text-sm text-gray-500">123 Library Street, Bookville, 5000</p>
-            <p className="text-sm text-gray-500">Email: support@booknook.com</p>
-            <p className="text-sm text-gray-500">Phone: +1 (555) 123-4567</p>
+          {/* Account Links */}
+          <div>
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-white">
+              My Account
+            </h3>
+
+            <div className="mt-4 h-1 w-10 rounded-full bg-violet-500" />
+
+            <ul className="mt-7 space-y-4">
+              {accountLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="group inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-white"
+                  >
+                    <ArrowRight
+                      size={14}
+                      className="text-violet-400 transition-transform group-hover:translate-x-1"
+                    />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
+          {/* Contact / About */}
+          <div>
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-white">
+              Get In Touch
+            </h3>
+
+            <div className="mt-4 h-1 w-10 rounded-full bg-indigo-500" />
+
+            <div className="mt-7 space-y-5">
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-indigo-300">
+                  <Mail size={18} />
+                </span>
+
+                <div>
+                  <p className="text-xs font-semibold text-white">
+                    Email Support
+                  </p>
+
+                  <p className="mt-1 text-sm text-slate-400">
+                    Contact information coming soon
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-indigo-300">
+                  <LibraryBig size={18} />
+                </span>
+
+                <div>
+                  <p className="text-xs font-semibold text-white">
+                    Online Library
+                  </p>
+
+                  <p className="mt-1 text-sm leading-6 text-slate-400">
+                    Explore and borrow books anytime, from anywhere.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-indigo-300">
+                  <BookMarked size={18} />
+                </span>
+
+                <div>
+                  <p className="text-xs font-semibold text-white">Community</p>
+
+                  <p className="mt-1 text-sm leading-6 text-slate-400">
+                    A space for readers to share and discover stories.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        
-        <div className="pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-400">
-            &copy; 2026 BookNook. All rights reserved.
+        {/* Bottom Footer */}
+        <div className="mt-16 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-8 text-center sm:flex-row sm:text-left">
+          <p className="text-xs text-slate-500">
+            © {new Date().getFullYear()} BookNook. All rights reserved.
           </p>
 
-         
-          <div className="flex items-center gap-4 text-gray-400">
-            
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            
-            
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-
-            
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-
-           
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-          </div>
+          <p className="flex items-center gap-1.5 text-xs text-slate-500">
+            Made with
+            <Heart size={13} className="fill-rose-500 text-rose-500" />
+            for book lovers everywhere
+          </p>
         </div>
       </div>
     </footer>

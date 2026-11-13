@@ -1,67 +1,146 @@
 
 import Link from "next/link";
 import {
+  ArrowRight,
   BookOpen,
-  ArrowLeft,
+  Compass,
   Home,
+  LibraryBig,
   SearchX,
+  Sparkles,
 } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-[85vh] items-center justify-center overflow-hidden bg-slate-50 px-4 py-16">
-      <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-indigo-100/60 blur-3xl" />
-      <div className="absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-purple-100/60 blur-3xl" />
+    <main className="relative flex min-h-[85vh] items-center justify-center overflow-hidden bg-[#f8f9fd] px-4 py-16 sm:py-20">
+      {/* Background Decorations */}
+      <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-indigo-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-violet-200/40 blur-3xl" />
 
-      <div className="relative z-10 mx-auto w-full max-w-xl text-center">
-        <div className="mb-8 flex justify-center">
-          <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl border border-indigo-100 bg-white shadow-xl shadow-indigo-100/50">
-            <BookOpen className="h-12 w-12 text-indigo-600" />
+      {/* Decorative Circles */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-100/70 sm:h-[500px] sm:w-[500px]" />
 
-            <div className="absolute -bottom-2 -right-2 flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg">
-              <SearchX className="h-5 w-5" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[240px] w-[240px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-indigo-100/60 sm:h-[380px] sm:w-[380px]" />
+
+      {/* Main Content */}
+      <div className="relative z-10 mx-auto w-full max-w-2xl text-center">
+        {/* Top Badge */}
+        <div className="mb-9 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white px-4 py-2 shadow-sm">
+          <Sparkles size={15} className="text-indigo-600" />
+
+          <span className="text-[11px] font-extrabold uppercase tracking-[0.17em] text-indigo-600">
+            Lost Between The Pages
+          </span>
+        </div>
+
+        {/* Illustration */}
+        <div className="relative mx-auto mb-8 flex h-32 w-32 items-center justify-center sm:h-36 sm:w-36">
+          {/* Outer Glow */}
+          <div className="absolute inset-0 rounded-full bg-indigo-200/40 blur-2xl" />
+
+          {/* Outer Ring */}
+          <div className="absolute inset-0 rounded-full border-2 border-dashed border-indigo-200" />
+
+          {/* Book Icon */}
+          <div className="relative flex h-24 w-24 -rotate-6 items-center justify-center rounded-[30px] bg-gradient-to-br from-indigo-600 via-indigo-600 to-violet-600 text-white shadow-2xl shadow-indigo-500/30 sm:h-28 sm:w-28">
+            <BookOpen
+              size={51}
+              strokeWidth={1.7}
+            />
+
+            {/* Search Badge */}
+            <div className="absolute -bottom-3 -right-3 flex h-12 w-12 rotate-6 items-center justify-center rounded-2xl border-4 border-[#f8f9fd] bg-white text-indigo-600 shadow-lg">
+              <SearchX size={23} />
             </div>
           </div>
         </div>
 
-        <div className="mb-4 text-7xl font-black tracking-tight text-indigo-600 sm:text-8xl">
-          404
+        {/* 404 Text */}
+        <div className="relative">
+          <h1 className="bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-500 bg-clip-text text-[110px] font-black leading-none tracking-[-0.09em] text-transparent sm:text-[150px]">
+            404
+          </h1>
         </div>
 
-        <div className="mb-4 inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-indigo-600">
+        {/* Status Badge */}
+        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-rose-100 bg-rose-50 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.15em] text-rose-500">
+          <span className="h-2 w-2 rounded-full bg-rose-500" />
           Page Not Found
         </div>
 
-        <h1 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Oops! This page is missing.
-        </h1>
+        {/* Heading */}
+        <h2 className="mt-7 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-[42px]">
+          Oops! This Story{" "}
+          <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+            Is Missing.
+          </span>
+        </h2>
 
-        <p className="mx-auto mb-9 max-w-md text-sm leading-7 text-gray-500 sm:text-base">
-          Looks like this page has been lost between the shelves.
-          The link may be broken, or the page may have been moved.
+        {/* Description */}
+        <p className="mx-auto mt-5 max-w-lg text-sm leading-8 text-slate-500 sm:text-base">
+          Looks like this page has been lost somewhere
+          between the shelves. The link might be broken,
+          or the page may have moved to a new chapter.
         </p>
 
-        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+        {/* Action Buttons */}
+        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5 hover:bg-indigo-700 sm:w-auto"
+            className="group inline-flex w-full items-center justify-center gap-2.5 rounded-2xl bg-indigo-600 px-7 py-4 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 hover:shadow-xl sm:w-auto"
           >
-            <Home className="h-4 w-4" />
+            <Home size={18} />
             Back to Home
+            <ArrowRight
+              size={17}
+              className="transition-transform group-hover:translate-x-1"
+            />
           </Link>
 
           <Link
             href="/allBooks"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-7 py-3.5 text-sm font-semibold text-gray-700 transition-all hover:border-indigo-200 hover:text-indigo-600 sm:w-auto"
+            className="group inline-flex w-full items-center justify-center gap-2.5 rounded-2xl border border-indigo-200 bg-white px-7 py-4 text-sm font-bold text-indigo-600 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-400 hover:bg-indigo-50 sm:w-auto"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <Compass size={18} />
             Explore Books
+            <ArrowRight
+              size={17}
+              className="transition-transform group-hover:translate-x-1"
+            />
           </Link>
         </div>
 
-        <p className="mt-12 text-xs text-gray-400">
-          © BookNook — Every story deserves a home.
-        </p>
+        {/* Helpful Message */}
+        <div className="mx-auto mt-12 flex max-w-md items-start gap-4 rounded-2xl border border-indigo-100 bg-white/80 p-5 text-left shadow-sm backdrop-blur-sm">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+            <LibraryBig size={23} />
+          </div>
+
+          <div>
+            <h3 className="text-sm font-extrabold text-slate-900">
+              Looking for a good read?
+            </h3>
+
+            <p className="mt-1.5 text-xs leading-6 text-slate-500">
+              Visit our library collection and
+              discover your next favorite book.
+            </p>
+
+            <Link
+              href="/allBooks"
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 transition hover:text-indigo-800"
+            >
+              Browse Library
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+
+        {/* Footer Text */}
+        <div className="mt-12 flex items-center justify-center gap-2 text-xs font-medium text-slate-400">
+          <BookOpen size={15} />
+          BookNook — Every story deserves a home.
+        </div>
       </div>
     </main>
   );

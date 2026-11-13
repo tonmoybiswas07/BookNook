@@ -1,142 +1,305 @@
+
 "use client";
+
+import { useRef, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Quote,
+  Sparkles,
+  Star,
+  UserRound,
+} from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import { Star, Quote } from "lucide-react";
-import Image from "next/image";
+import type { Swiper as SwiperType } from "swiper";
 
-// Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
+const reviews = [
+  {
+    id: 1,
+    name: "Sarah Jenkins",
+    role: "Avid Reader",
+    comment:
+      "BookNook has completely changed how I find and read books. The borrowing system is so seamless and fast!",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+  },
+  {
+    id: 2,
+    name: "Michael Chen",
+    role: "Science Enthusiast",
+    comment:
+      "Finding science and history books used to be a hassle. With BookNook, I can browse and borrow within seconds.",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+  },
+  {
+    id: 3,
+    name: "Jessica Taylor",
+    role: "Fiction Lover",
+    comment:
+      "The UI is so minimalistic and clean! I love tracking my borrowed books and returning them without any stress.",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+  },
+  {
+    id: 4,
+    name: "David Miller",
+    role: "History Researcher",
+    comment:
+      "An incredible collection of historical literature. The interface is clean, fast, and very user-friendly.",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+  },
+  {
+    id: 5,
+    name: "Emma Watson",
+    role: "Student & Bookworm",
+    comment:
+      "Being able to see total available copies and borrow instantly makes studying and reading so much easier!",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
+  },
+  {
+    id: 6,
+    name: "Liam O'Connor",
+    role: "Fantasy Fanatic",
+    comment:
+      "Simply the best online library project. The navigation and book detail pages are brilliantly designed.",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
+  },
+];
+
 export default function ReaderReviews() {
-  const reviews = [
-    {
-      id: 1,
-      name: "Sarah Jenkins",
-      role: "Avid Reader",
-      comment: "BookNook has completely changed how I find and read books. The borrowing system is so seamless and fast!",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "Science Enthusiast",
-      comment: "Finding science and history books used to be a hassle. With BookNook, I can browse and borrow within seconds.",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      id: 3,
-      name: "Jessica Taylor",
-      role: "Fiction Lover",
-      comment: "The UI is so minimalistic and clean! I love tracking my borrowed books and returning them without any stress.",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      id: 4,
-      name: "David Miller",
-      role: "History Researcher",
-      comment: "An incredible collection of historical literature. The interface is clean, fast, and very user-friendly.",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      id: 5,
-      name: "Emma Watson",
-      role: "Student & Bookworm",
-      comment: "Being able to see total available copies and borrow instantly makes studying and reading so much easier!",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
-    },
-    {
-      id: 6,
-      name: "Liam O'Connor",
-      role: "Fantasy Fanatic",
-      comment: "Simply the best online library project. The navigation and book detail pages are brilliantly designed.",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
-    },
-  ];
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      {/* Section Header */}
-      <div className="text-center max-w-2xl mx-auto mb-16">
-        <span className="text-xs font-semibold tracking-wider text-indigo-600 uppercase bg-indigo-50 px-3 py-1 rounded-full">
-          Testimonials
-        </span>
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 mt-3">
-          What Our Readers Say
-        </h2>
-        <p className="text-gray-500 mt-2 text-sm sm:text-base">
-          Hear from members of our community who love discovering and sharing books through BookNook.
-        </p>
-      </div>
+    <section className="relative overflow-hidden bg-white py-20 sm:py-24">
+      {/* Background Decorations */}
+      <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-indigo-100/50 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-violet-100/50 blur-3xl" />
 
-      {/* Reviews Slider */}
-      <Swiper
-        modules={[Autoplay, Pagination]}
-        spaceBetween={24}
-        slidesPerView={1}
-        breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        autoplay={{
-          delay: 3500,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-        }}
-        loop={true}
-        className="pb-14"
-      >
-        {reviews.map((review) => (
-          <SwiperSlide key={review.id} className="h-auto">
-            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative flex flex-col justify-between h-full min-h-[240px]">
-              <div className="absolute top-6 right-6 text-indigo-100">
-                <Quote className="w-10 h-10 rotate-180 opacity-50" />
-              </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-indigo-600">
+              <Sparkles size={15} />
+              Reader Testimonials
+            </span>
 
-              <div className="space-y-4">
-                {/* Rating Stars */}
-                <div className="flex items-center gap-1 text-amber-400">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
+            <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+              What Our{" "}
+              <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                Readers Say
+              </span>
+            </h2>
+
+            <p className="mt-5 max-w-xl text-sm leading-7 text-slate-500 sm:text-base">
+              Discover what makes BookNook special
+              through the experiences and stories
+              shared by our reading community.
+            </p>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              aria-label="Previous review"
+              onClick={() =>
+                swiperRef.current?.slidePrev()
+              }
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all hover:border-indigo-600 hover:bg-indigo-600 hover:text-white"
+            >
+              <ArrowLeft size={19} />
+            </button>
+
+            <button
+              type="button"
+              aria-label="Next review"
+              onClick={() =>
+                swiperRef.current?.slideNext()
+              }
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all hover:border-indigo-600 hover:bg-indigo-600 hover:text-white"
+            >
+              <ArrowRight size={19} />
+            </button>
+          </div>
+        </div>
+
+        {/* Reviews Slider */}
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onSlideChange={(swiper) => {
+            setActiveIndex(swiper.realIndex);
+          }}
+          spaceBetween={24}
+          slidesPerView={1}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 24,
+            },
+          }}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          loop={true}
+          className="!pb-16 !pt-3"
+        >
+          {reviews.map((review) => (
+            <SwiperSlide
+              key={review.id}
+              className="!h-auto"
+            >
+              <article className="group relative flex h-full min-h-[310px] flex-col overflow-hidden rounded-[28px] border border-slate-200/80 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-100/50 sm:p-8">
+                {/* Decorative Quote */}
+                <Quote
+                  size={58}
+                  strokeWidth={1.2}
+                  className="pointer-events-none absolute right-6 top-6 rotate-180 text-indigo-100 transition-colors group-hover:text-indigo-200"
+                />
+
+                {/* Rating */}
+                <div className="relative z-10 flex items-center gap-1">
+                  {Array.from(
+                    { length: 5 },
+                    (_, index) => (
+                      <Star
+                        key={index}
+                        size={17}
+                        className={
+                          index < review.rating
+                            ? "fill-amber-400 text-amber-400"
+                            : "fill-slate-100 text-slate-200"
+                        }
+                      />
+                    )
+                  )}
+
+                  <span className="ml-2 text-xs font-bold text-slate-500">
+                    {review.rating}.0
+                  </span>
                 </div>
 
-                {/* Comment */}
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  "{review.comment}"
-                </p>
-              </div>
+                {/* Review */}
+                <div className="relative z-10 mt-7 flex-1">
+                  <p className="text-sm leading-8 text-slate-600 sm:text-[15px]">
+                    &ldquo;{review.comment}&rdquo;
+                  </p>
+                </div>
 
-              {/* User Info */}
-              <div className="flex items-center gap-4 pt-6 mt-6 border-t border-gray-50">
-                <div className="relative w-11 h-11 rounded-full overflow-hidden ring-2 ring-indigo-50 flex-shrink-0">
-                  <Image 
-                    src={review.avatar} 
-                    alt={review.name} 
-                    width={44}
-                    height={44}
-                    className="object-cover w-full h-full"
+                {/* Reviewer */}
+                <div className="relative z-10 mt-8 flex items-center gap-3 border-t border-slate-100 pt-6">
+                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-indigo-100 bg-indigo-50">
+                    {review.avatar ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={review.avatar}
+                        alt={`${review.name} avatar`}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-indigo-500">
+                        <UserRound size={22} />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <h3 className="truncate text-sm font-extrabold text-slate-900">
+                      {review.name}
+                    </h3>
+
+                    <p className="mt-1 truncate text-xs font-medium text-indigo-600">
+                      {review.role}
+                    </p>
+                  </div>
+
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                    <BookOpen size={17} />
+                  </span>
+                </div>
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Bottom Summary */}
+        <div className="mt-2 flex flex-col items-center justify-between gap-5 border-t border-slate-100 pt-8 sm:flex-row">
+          <div className="flex items-center gap-3">
+            <div className="flex -space-x-3">
+              {reviews.slice(0, 4).map((review) => (
+                <div
+                  key={review.id}
+                  className="h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-indigo-50"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={review.avatar}
+                    alt={review.name}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
                   />
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-gray-900">{review.name}</h4>
-                  <p className="text-xs text-indigo-600 font-medium">{review.role}</p>
-                </div>
-              </div>
+              ))}
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+
+            <div>
+              <p className="text-sm font-bold text-slate-900">
+                Reader Experiences
+              </p>
+              <p className="text-xs text-slate-500">
+                Stories from our book community
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-extrabold tabular-nums text-indigo-600">
+              {String(activeIndex + 1).padStart(2, "0")}
+            </span>
+
+            <span className="h-px w-10 bg-slate-300" />
+
+            <span className="text-sm font-medium tabular-nums text-slate-400">
+              {String(reviews.length).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

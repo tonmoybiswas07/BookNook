@@ -1,10 +1,9 @@
 
-export const instant = false;
-
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BookDetailsClient from "./BookDetailsClient";
-import { Metadata } from "next";
 
+export const instant = false;
 
 interface Book {
   _id: string;
@@ -18,32 +17,65 @@ interface Book {
   userEmail: string;
   addedDate: string;
 }
-export const metadata: Metadata = {
-  title: "BookNook | Details Page",
-};
+
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+const API_URL =
+  process.env.API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:8000";
+
+// Fetch a single book
 async function getBook(id: string): Promise<Book | null> {
   const res = await fetch(
-    `http://localhost:8000/books/${id}`,
+    `${API_URL}/books/${encodeURIComponent(id)}`,
     {
       cache: "no-store",
     }
   );
 
-  if (res.status === 404) return null;
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch book details");
+  if (res.status === 404) {
+    return null;
   }
 
-  return res.json();
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch book details: ${res.status}`
+    );
+  }
+
+  return (await res.json()) as Book;
 }
 
+// Dynamic page metadata
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const book = await getBook(id);
+
+  if (!book) {
+    return {
+      title: "Book Not Found | BookNook",
+    };
+  }
+
+  return {
+    title: `${book.title} | BookNook`,
+    description:
+      book.description?.slice(0, 160) ||
+      `Explore ${book.title} by ${book.author} on BookNook.`,
+  };
+}
+
+// Book Details Page
 export default async function BookDetailsPage({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+}: PageProps) {
   const { id } = await params;
+
   const book = await getBook(id);
 
   if (!book) {
