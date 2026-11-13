@@ -13,11 +13,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Fetch real-time session using BetterAuth
+
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
-  const isActive = (path) => pathname === path;
+ const isActive = (path: string): boolean => pathname === path;
 
  
   const handleLogout = async () => {
@@ -92,7 +92,7 @@ export default function Navbar() {
                       {user.name || "User"}
                     </div>
                     <Link 
-                      href="/my-profile" 
+                      href="/myProfile" 
                       onClick={() => setDropdownOpen(false)}
                       className="block px-4 py-2 hover:bg-gray-50 transition-colors"
                     >

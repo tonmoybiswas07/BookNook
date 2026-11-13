@@ -3,6 +3,7 @@ export const instant = false;
 
 import { notFound } from "next/navigation";
 import BookDetailsClient from "./BookDetailsClient";
+import { Metadata } from "next";
 
 
 interface Book {
@@ -17,7 +18,9 @@ interface Book {
   userEmail: string;
   addedDate: string;
 }
-
+export const metadata: Metadata = {
+  title: "BookNook | Details Page",
+};
 async function getBook(id: string): Promise<Book | null> {
   const res = await fetch(
     `http://localhost:8000/books/${id}`,
