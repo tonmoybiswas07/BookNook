@@ -65,7 +65,7 @@ export default function Banner() {
                 </p>
                 <div>
                   <Link
-                    href="/books"
+                    href="/allBooks"
                     className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-lg shadow-indigo-600/30 transition-all duration-300 transform hover:-translate-y-0.5"
                   >
                     Browse Books

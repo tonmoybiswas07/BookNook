@@ -10,3 +10,71 @@
   background: #ffffff;
   opacity: 0.7;
 }
+
+
+.new-arrivals-swiper {
+  overflow: visible !important;
+}
+
+.new-arrivals-swiper .swiper-button-next,
+.new-arrivals-swiper .swiper-button-prev {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #4f46e5;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 5px 20px rgba(15, 23, 42, 0.10);
+  transition: all 0.3s ease;
+}
+
+.new-arrivals-swiper .swiper-button-next:hover,
+.new-arrivals-swiper .swiper-button-prev:hover {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: #4f46e5;
+  transform: scale(1.08);
+}
+
+.new-arrivals-swiper .swiper-button-next::after,
+.new-arrivals-swiper .swiper-button-prev::after {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.new-arrivals-swiper .swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.new-arrivals-swiper .swiper-pagination {
+  bottom: 5px !important;
+}
+
+.new-arrivals-swiper .swiper-pagination-bullet {
+  width: 9px;
+  height: 9px;
+  background: #c7d2fe;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.new-arrivals-swiper .swiper-pagination-bullet-active {
+  width: 26px;
+  border-radius: 10px;
+  background: #4f46e5;
+}
+
+/* Mobile Navigation */
+@media (max-width: 640px) {
+  .new-arrivals-swiper .swiper-button-next,
+  .new-arrivals-swiper .swiper-button-prev {
+    width: 36px;
+    height: 36px;
+  }
+
+  .new-arrivals-swiper .swiper-button-next::after,
+  .new-arrivals-swiper .swiper-button-prev::after {
+    font-size: 13px;
+  }
+}
