@@ -119,55 +119,64 @@ export default function MyBorrowsPage() {
     setSuccess("");
   };
 
-  // Return or Delete
-  const handleConfirmAction = async () => {
-    if (!selectedBook || !email || processing) return;
+ 
+const handleConfirmAction = async () => {
+  if (!selectedBook || !email || processing) return;
 
-    try {
-      setProcessing(true);
-      setError("");
+  try {
+    setProcessing(true);
+    setError("");
+    setSuccess("");
 
-      const res = await fetch(
-        `${API_URL}/borrows/${selectedBook._id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "x-user-email": email,
-          },
-        }
+    const isReturn = actionType === "return";
+
+    const url = isReturn
+      ? `${API_URL}/borrows/${selectedBook._id}/return`
+      : `${API_URL}/borrows/${selectedBook._id}`;
+
+    const res = await fetch(url, {
+      method: isReturn ? "PATCH" : "DELETE",
+      headers: {
+        "x-user-email": email,
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(
+        data.message ||
+          (isReturn
+            ? "Failed to return book"
+            : "Failed to delete borrow")
       );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(
-          data.message || "Failed to process request"
-        );
-      }
-
-      setBorrows((prev) =>
-        prev.filter(
-          (book) => book._id !== selectedBook._id
-        )
-      );
-
-      setSuccess(
-        actionType === "return"
-          ? "Book returned successfully!"
-          : "Borrow record deleted successfully!"
-      );
-
-      setSelectedBook(null);
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
-      );
-    } finally {
-      setProcessing(false);
     }
-  };
+
+    // Update table immediately
+    setBorrows((prev) =>
+      prev.filter(
+        (book) => book._id !== selectedBook._id
+      )
+    );
+
+    setSuccess(
+      isReturn
+        ? "Book returned successfully! Available copies increased by 1."
+        : "Borrow record deleted successfully!"
+    );
+
+    setSelectedBook(null);
+  } catch (err) {
+    setError(
+      err instanceof Error
+        ? err.message
+        : "Something went wrong"
+    );
+  } finally {
+    setProcessing(false);
+  }
+};
+
 
   // Loading
   if (isPending || loading) {
