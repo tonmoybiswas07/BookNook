@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BookDetailsClient from "./BookDetailsClient";
@@ -29,21 +28,16 @@ const API_URL =
 
 // Fetch a single book
 async function getBook(id: string): Promise<Book | null> {
-  const res = await fetch(
-    `${API_URL}/books/${encodeURIComponent(id)}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`${API_URL}/books/${encodeURIComponent(id)}`, {
+    cache: "no-store",
+  });
 
   if (res.status === 404) {
     return null;
   }
 
   if (!res.ok) {
-    throw new Error(
-      `Failed to fetch book details: ${res.status}`
-    );
+    throw new Error(`Failed to fetch book details: ${res.status}`);
   }
 
   return (await res.json()) as Book;
@@ -71,9 +65,7 @@ export async function generateMetadata({
 }
 
 // Book Details Page
-export default async function BookDetailsPage({
-  params,
-}: PageProps) {
+export default async function BookDetailsPage({ params }: PageProps) {
   const { id } = await params;
 
   const book = await getBook(id);
