@@ -66,7 +66,7 @@ The application provides a seamless user experience with secure authentication, 
 ### 1. Clone the Repository
 
 ```bash
-git clone YOUR_FRONTEND_REPOSITORY_URL
+git clone https://github.com/tonmoybiswas07/BookNook
 ```
 
 ### 2. Navigate to the Project Directory
