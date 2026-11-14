@@ -1,5 +1,5 @@
-import Link from "next/link";
 
+import Link from "next/link";
 import {
   FaFacebookF,
   FaInstagram,
@@ -55,25 +55,24 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#11152e] text-slate-300">
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-indigo-600/10 blur-[110px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-violet-600/10 blur-[110px]" />
+    <footer className="relative overflow-hidden border-t border-slate-200 bg-white text-slate-600 transition-colors duration-300 dark:border-white/10 dark:bg-[#11152e] dark:text-slate-300">
+      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-indigo-100/50 blur-[110px] dark:bg-indigo-600/10" />
 
-      {/* Top CTA */}
-      <div className="relative border-b border-white/10">
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-violet-100/50 blur-[110px] dark:bg-violet-600/10" />
+
+      <div className="relative border-b border-slate-200 dark:border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center lg:px-8">
           <div className="flex items-start gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-indigo-500/15 text-indigo-300">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-300">
               <BookOpen size={27} />
             </div>
 
             <div>
-              <h2 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl">
+              <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-2xl">
                 Your next great story awaits.
               </h2>
 
-              <p className="mt-2 max-w-lg text-sm leading-6 text-slate-400">
+              <p className="mt-2 max-w-lg text-sm leading-6 text-slate-500 dark:text-slate-400">
                 Explore a world of books, discover new perspectives, and find
                 your next favorite read with BookNook.
               </p>
@@ -82,9 +81,10 @@ export default function Footer() {
 
           <Link
             href="/allBooks"
-            className="group inline-flex shrink-0 items-center gap-3 rounded-2xl bg-indigo-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-950/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-500"
+            className="group inline-flex shrink-0 items-center gap-3 rounded-2xl bg-indigo-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-700 dark:shadow-indigo-950/30 dark:hover:bg-indigo-500"
           >
             Explore Books
+
             <ArrowRight
               size={18}
               className="transition-transform group-hover:translate-x-1"
@@ -93,33 +93,35 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main Footer */}
       <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
           <div>
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-950/30">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-3"
+            >
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 dark:shadow-indigo-950/30">
                 <BookOpen size={25} />
               </span>
 
-              <span className="text-2xl font-extrabold tracking-tight text-white">
+              <span className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                 Book
-                <span className="text-indigo-400">Nook</span>
+                <span className="text-indigo-600 dark:text-indigo-400">
+                  Nook
+                </span>
               </span>
             </Link>
 
-            <p className="mt-6 max-w-sm text-sm leading-7 text-slate-400">
+            <p className="mt-6 max-w-sm text-sm leading-7 text-slate-500 dark:text-slate-400">
               Your gateway to endless stories. Discover, borrow, and share books
               effortlessly in one welcoming online library community.
             </p>
 
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-xs font-semibold text-indigo-200">
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-xs font-semibold text-indigo-600 dark:border-indigo-400/20 dark:bg-indigo-500/10 dark:text-indigo-200">
               <Sparkles size={14} />
               Read More. Discover More.
             </div>
 
-            {/* Social Links */}
             <div className="mt-7 flex items-center gap-3">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -131,7 +133,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/50 hover:bg-indigo-600 hover:text-white"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-500 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500 hover:bg-indigo-600 hover:text-white dark:border-white/10 dark:bg-white/5 dark:text-slate-400 dark:hover:border-indigo-400/50 dark:hover:bg-indigo-600 dark:hover:text-white"
                   >
                     <Icon size={18} />
                   </a>
@@ -140,9 +142,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-white">
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-slate-900 dark:text-white">
               Quick Links
             </h3>
 
@@ -153,11 +154,11 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-white"
+                    className="group inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-indigo-600 dark:text-slate-400 dark:hover:text-white"
                   >
                     <ArrowRight
                       size={14}
-                      className="text-indigo-400 transition-transform group-hover:translate-x-1"
+                      className="text-indigo-500 transition-transform group-hover:translate-x-1 dark:text-indigo-400"
                     />
                     {link.label}
                   </Link>
@@ -166,9 +167,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Account Links */}
           <div>
-            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-white">
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-slate-900 dark:text-white">
               My Account
             </h3>
 
@@ -179,11 +179,11 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-white"
+                    className="group inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-violet-600 dark:text-slate-400 dark:hover:text-white"
                   >
                     <ArrowRight
                       size={14}
-                      className="text-violet-400 transition-transform group-hover:translate-x-1"
+                      className="text-violet-500 transition-transform group-hover:translate-x-1 dark:text-violet-400"
                     />
                     {link.label}
                   </Link>
@@ -192,9 +192,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact / About */}
           <div>
-            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-white">
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.14em] text-slate-900 dark:text-white">
               Get In Touch
             </h3>
 
@@ -202,46 +201,48 @@ export default function Footer() {
 
             <div className="mt-7 space-y-5">
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-indigo-300">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-white/5 dark:text-indigo-300">
                   <Mail size={18} />
                 </span>
 
                 <div>
-                  <p className="text-xs font-semibold text-white">
+                  <p className="text-xs font-semibold text-slate-900 dark:text-white">
                     Email Support
                   </p>
 
-                  <p className="mt-1 text-sm text-slate-400">
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     Contact information coming soon
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-indigo-300">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-white/5 dark:text-indigo-300">
                   <LibraryBig size={18} />
                 </span>
 
                 <div>
-                  <p className="text-xs font-semibold text-white">
+                  <p className="text-xs font-semibold text-slate-900 dark:text-white">
                     Online Library
                   </p>
 
-                  <p className="mt-1 text-sm leading-6 text-slate-400">
+                  <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
                     Explore and borrow books anytime, from anywhere.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-indigo-300">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-white/5 dark:text-indigo-300">
                   <BookMarked size={18} />
                 </span>
 
                 <div>
-                  <p className="text-xs font-semibold text-white">Community</p>
+                  <p className="text-xs font-semibold text-slate-900 dark:text-white">
+                    Community
+                  </p>
 
-                  <p className="mt-1 text-sm leading-6 text-slate-400">
+                  <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
                     A space for readers to share and discover stories.
                   </p>
                 </div>
@@ -250,15 +251,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Footer */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-8 text-center sm:flex-row sm:text-left">
-          <p className="text-xs text-slate-500">
-            © {new Date().getFullYear()} BookNook. All rights reserved.
+        <div className="mt-16 flex flex-col items-center justify-between gap-5 border-t border-slate-200 pt-8 text-center dark:border-white/10 sm:flex-row sm:text-left">
+          <p className="text-xs text-slate-500 dark:text-slate-500">
+            © 2026 BookNook. All rights reserved.
           </p>
 
-          <p className="flex items-center gap-1.5 text-xs text-slate-500">
+          <p className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-500">
             Made with
-            <Heart size={13} className="fill-rose-500 text-rose-500" />
+            <Heart
+              size={13}
+              className="fill-rose-500 text-rose-500"
+            />
             for book lovers everywhere
           </p>
         </div>

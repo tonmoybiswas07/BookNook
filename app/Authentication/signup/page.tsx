@@ -32,17 +32,14 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] =
-    useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState(false);
 
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] =
-    useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const requestedCallback =
     searchParams.get("callbackUrl") || "/";
@@ -84,78 +81,79 @@ export default function RegisterPage() {
     password === confirmPassword;
 
   const inputClass =
-    "w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10";
+    "w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-indigo-500 dark:focus:bg-slate-800 dark:focus:ring-indigo-500/20";
 
-  // Email Registration
-  
-const handleRegister = async (
-  event: FormEvent<HTMLFormElement>
-) => {
-  event.preventDefault();
+  const labelClass =
+    "mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300";
 
-  if (loading || googleLoading) return;
+  const iconClass =
+    "pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500";
 
-  if (!name.trim()) {
-    toast.error("Please enter your full name.");
-    return;
-  }
+  const handleRegister = async (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
 
-  if (!isPasswordValid) {
-    toast.error(
-      "Password must have at least 6 characters, one uppercase and one lowercase letter."
-    );
-    return;
-  }
+    if (loading || googleLoading) return;
 
-  if (password !== confirmPassword) {
-    toast.error("Passwords do not match.");
-    return;
-  }
+    if (!name.trim()) {
+      toast.error("Please enter your full name.");
+      return;
+    }
 
-  setLoading(true);
-
-  try {
-    const { error } = await authClient.signUp.email({
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
-      password,
-    });
-
-    if (error) {
+    if (!isPasswordValid) {
       toast.error(
-        error.message || "Registration failed."
+        "Password must have at least 6 characters, one uppercase and one lowercase letter."
       );
       return;
     }
 
-    toast.success("Account created successfully!");
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
 
-    router.push(signinUrl);
-    router.refresh();
-  } catch (error) {
-    console.error("Registration error:", error);
+    setLoading(true);
 
-    toast.error(
-      "Something went wrong. Please try again."
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      const { error } = await authClient.signUp.email({
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        password,
+      });
 
+      if (error) {
+        toast.error(
+          error.message || "Registration failed."
+        );
+        return;
+      }
 
-  // Google Registration
+      toast.success("Account created successfully!");
+
+      router.push(signinUrl);
+      router.refresh();
+    } catch (error) {
+      console.error("Registration error:", error);
+
+      toast.error(
+        "Something went wrong. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleGoogleSignup = async () => {
     if (loading || googleLoading) return;
 
     setGoogleLoading(true);
 
     try {
-      const { error } =
-        await authClient.signIn.social({
-          provider: "google",
-          callbackURL: callbackUrl,
-        });
+      const { error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: callbackUrl,
+      });
 
       if (error) {
         toast.error(
@@ -171,10 +169,9 @@ const handleRegister = async (
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f9fd]">
+    <main className="min-h-screen bg-[#f8f9fd] transition-colors duration-300 dark:bg-slate-950">
       <div className="grid min-h-screen lg:grid-cols-2">
-        {/* Left Branding Section */}
-        <section className="relative hidden min-h-screen flex-col justify-between overflow-hidden bg-[#171b3d] p-12 text-white lg:flex xl:p-16">
+        <section className="relative hidden min-h-screen flex-col justify-between overflow-hidden bg-[#171b3d] p-12 text-white dark:bg-[#0b1028] lg:flex xl:p-16">
           <div className="pointer-events-none absolute -left-40 top-20 h-[450px] w-[450px] rounded-full bg-indigo-500/20 blur-[110px]" />
           <div className="pointer-events-none absolute -bottom-40 -right-32 h-[450px] w-[450px] rounded-full bg-violet-500/20 blur-[110px]" />
 
@@ -254,10 +251,8 @@ const handleRegister = async (
           />
         </section>
 
-        {/* Right Signup Form */}
         <section className="flex min-h-screen items-center justify-center px-4 py-12 sm:px-8 lg:px-12">
           <div className="w-full max-w-[460px]">
-            {/* Mobile Logo */}
             <Link
               href="/"
               className="mb-10 inline-flex items-center gap-3 lg:hidden"
@@ -266,41 +261,39 @@ const handleRegister = async (
                 <BookOpen size={22} />
               </span>
 
-              <span className="text-2xl font-extrabold tracking-tight text-slate-900">
+              <span className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                 Book
-                <span className="text-indigo-600">
+                <span className="text-indigo-600 dark:text-indigo-400">
                   Nook
                 </span>
               </span>
             </Link>
 
-            {/* Header */}
             <div className="mb-8">
-              <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+              <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400">
                 <UserPlus size={26} />
               </div>
 
-              <h1 className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+              <h1 className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
                 Create your account
               </h1>
 
-              <p className="mt-3 text-sm leading-7 text-slate-500">
+              <p className="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-400">
                 Join the BookNook community and
                 begin your reading journey.
               </p>
             </div>
 
-            {/* Google Signup */}
             <button
               type="button"
               onClick={handleGoogleSignup}
               disabled={loading || googleLoading}
-              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50/50 disabled:opacity-60"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50/50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-indigo-500/40 dark:hover:bg-slate-800"
             >
               {googleLoading ? (
                 <Loader2
                   size={20}
-                  className="animate-spin text-indigo-600"
+                  className="animate-spin text-indigo-600 dark:text-indigo-400"
                 />
               ) : (
                 <svg
@@ -315,7 +308,7 @@ const handleRegister = async (
                   />
                   <path
                     fill="#34A853"
-                    d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45-1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.19v3.15C3.17 21.36 7.23 24 12 24z"
+                    d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.19v3.15C3.17 21.36 7.23 24 12 24z"
                   />
                   <path
                     fill="#FBBC05"
@@ -333,25 +326,22 @@ const handleRegister = async (
                 : "Continue with Google"}
             </button>
 
-            {/* Divider */}
             <div className="my-7 flex items-center gap-4">
-              <div className="h-px flex-1 bg-slate-200" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 Or with email
               </span>
-              <div className="h-px flex-1 bg-slate-200" />
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
             </div>
 
-            {/* Signup Form */}
             <form
               onSubmit={handleRegister}
               className="space-y-5"
             >
-              {/* Full Name */}
               <div>
                 <label
                   htmlFor="register-name"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className={labelClass}
                 >
                   Full Name
                 </label>
@@ -359,7 +349,7 @@ const handleRegister = async (
                 <div className="relative">
                   <UserRound
                     size={18}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className={iconClass}
                   />
 
                   <input
@@ -378,11 +368,10 @@ const handleRegister = async (
                 </div>
               </div>
 
-              {/* Email */}
               <div>
                 <label
                   htmlFor="register-email"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className={labelClass}
                 >
                   Email Address
                 </label>
@@ -390,7 +379,7 @@ const handleRegister = async (
                 <div className="relative">
                   <Mail
                     size={18}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className={iconClass}
                   />
 
                   <input
@@ -408,11 +397,10 @@ const handleRegister = async (
                 </div>
               </div>
 
-              {/* Photo URL */}
               <div>
                 <label
                   htmlFor="register-image"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className={labelClass}
                 >
                   Profile Photo URL
                   <span className="ml-2 text-xs font-normal text-slate-400">
@@ -423,7 +411,7 @@ const handleRegister = async (
                 <div className="relative">
                   <ImageIcon
                     size={18}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className={iconClass}
                   />
 
                   <input
@@ -439,11 +427,10 @@ const handleRegister = async (
                 </div>
               </div>
 
-              {/* Password */}
               <div>
                 <label
                   htmlFor="register-password"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className={labelClass}
                 >
                   Password
                 </label>
@@ -451,7 +438,7 @@ const handleRegister = async (
                 <div className="relative">
                   <LockKeyhole
                     size={18}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className={iconClass}
                   />
 
                   <input
@@ -478,7 +465,7 @@ const handleRegister = async (
                     onClick={() =>
                       setShowPassword((prev) => !prev)
                     }
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-indigo-600 dark:text-slate-500 dark:hover:text-indigo-400"
                   >
                     {showPassword ? (
                       <EyeOff size={19} />
@@ -488,37 +475,36 @@ const handleRegister = async (
                   </button>
                 </div>
 
-                {/* Password Rules */}
                 <div className="mt-3 space-y-2">
                   {passwordRules.map((rule) => (
                     <div
                       key={rule.label}
                       className={`flex items-center gap-2 text-xs ${
                         rule.valid
-                          ? "text-emerald-600"
-                          : "text-slate-400"
+                          ? "text-emerald-600 dark:text-emerald-400"
+                          : "text-slate-400 dark:text-slate-500"
                       }`}
                     >
                       <span
                         className={`flex h-4 w-4 items-center justify-center rounded-full ${
                           rule.valid
-                            ? "bg-emerald-100"
-                            : "bg-slate-100"
+                            ? "bg-emerald-100 dark:bg-emerald-500/15"
+                            : "bg-slate-100 dark:bg-slate-800"
                         }`}
                       >
                         <Check size={11} />
                       </span>
+
                       {rule.label}
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Confirm Password */}
               <div>
                 <label
                   htmlFor="confirm-password"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className={labelClass}
                 >
                   Confirm Password
                 </label>
@@ -526,7 +512,7 @@ const handleRegister = async (
                 <div className="relative">
                   <LockKeyhole
                     size={18}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className={iconClass}
                   />
 
                   <input
@@ -559,7 +545,7 @@ const handleRegister = async (
                         (prev) => !prev
                       )
                     }
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-indigo-600 dark:text-slate-500 dark:hover:text-indigo-400"
                   >
                     {showConfirmPassword ? (
                       <EyeOff size={19} />
@@ -573,8 +559,8 @@ const handleRegister = async (
                   <p
                     className={`mt-2 text-xs font-medium ${
                       passwordsMatch
-                        ? "text-emerald-600"
-                        : "text-rose-500"
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : "text-rose-500 dark:text-rose-400"
                     }`}
                   >
                     {passwordsMatch
@@ -584,7 +570,6 @@ const handleRegister = async (
                 )}
               </div>
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading || googleLoading}
@@ -610,19 +595,17 @@ const handleRegister = async (
               </button>
             </form>
 
-            {/* Sign In */}
-            <p className="mt-8 text-center text-sm text-slate-500">
+            <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
               Already have an account?{" "}
               <Link
                 href={signinUrl}
-                className="font-bold text-indigo-600 hover:text-indigo-700"
+                className="font-bold text-indigo-600 transition hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
               >
                 Sign In
               </Link>
             </p>
 
-            {/* Security */}
-            <div className="mt-8 flex items-center justify-center gap-2 border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
+            <div className="mt-8 flex items-center justify-center gap-2 border-t border-slate-200 pt-6 text-center text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500">
               <ShieldCheck size={16} />
               Your account is protected by Better Auth
             </div>

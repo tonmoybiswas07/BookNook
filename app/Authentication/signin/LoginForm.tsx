@@ -11,7 +11,6 @@ import {
   CheckCircle2,
   Eye,
   EyeOff,
-  LibraryBig,
   Loader2,
   LockKeyhole,
   Mail,
@@ -27,17 +26,13 @@ export default function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] =
-    useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] =
-    useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const requestedCallback =
     searchParams.get("callbackUrl") || "/";
 
-  // Prevent external redirects.
   const callbackUrl =
     requestedCallback.startsWith("/") &&
     !requestedCallback.startsWith("//") &&
@@ -51,7 +46,6 @@ export default function LoginForm() {
       callbackUrl
     )}`;
 
-  // Email and password login
   const handleLogin = async (
     event: FormEvent<HTMLFormElement>
   ) => {
@@ -94,18 +88,16 @@ export default function LoginForm() {
     }
   };
 
-  // Google login
   const handleGoogleLogin = async () => {
     if (loading || googleLoading) return;
 
     setGoogleLoading(true);
 
     try {
-      const { error } =
-        await authClient.signIn.social({
-          provider: "google",
-          callbackURL: callbackUrl,
-        });
+      const { error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: callbackUrl,
+      });
 
       if (error) {
         toast.error(
@@ -115,25 +107,21 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.error("Google login error:", error);
-
       toast.error("Google login failed.");
       setGoogleLoading(false);
     }
   };
 
   const inputClass =
-    "w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10";
+    "w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-indigo-500 dark:focus:bg-slate-800 dark:focus:ring-indigo-500/20";
 
   return (
-    <main className="min-h-screen bg-[#f8f9fd]">
+    <main className="min-h-screen bg-[#f8f9fd] transition-colors duration-300 dark:bg-slate-950">
       <div className="grid min-h-screen lg:grid-cols-2">
-        {/* LEFT SIDE */}
-        <div className="relative hidden min-h-screen overflow-hidden bg-[#171b3d] p-12 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
-          {/* Background shapes */}
+        <div className="relative hidden min-h-screen overflow-hidden bg-[#171b3d] p-12 text-white lg:flex lg:flex-col lg:justify-between dark:bg-[#0b1028] xl:p-16">
           <div className="pointer-events-none absolute -left-40 top-20 h-[450px] w-[450px] rounded-full bg-indigo-500/20 blur-[110px]" />
           <div className="pointer-events-none absolute -bottom-40 -right-32 h-[450px] w-[450px] rounded-full bg-violet-500/20 blur-[110px]" />
 
-          {/* Brand */}
           <Link
             href="/"
             className="relative z-10 inline-flex w-fit items-center gap-3"
@@ -146,11 +134,13 @@ export default function LoginForm() {
             </span>
 
             <span className="text-2xl font-extrabold tracking-tight">
-              Book<span className="text-indigo-300">Nook</span>
+              Book
+              <span className="text-indigo-300">
+                Nook
+              </span>
             </span>
           </Link>
 
-          {/* Hero */}
           <div className="relative z-10 max-w-xl py-16">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-indigo-200">
               <Sparkles size={15} />
@@ -171,7 +161,6 @@ export default function LoginForm() {
               just as much as you do.
             </p>
 
-            {/* Features */}
             <div className="mt-12 space-y-5">
               {[
                 "Discover books across every genre",
@@ -197,13 +186,11 @@ export default function LoginForm() {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="relative z-10 flex items-center gap-2 text-xs text-indigo-200/50">
             <ShieldCheck size={16} />
             Secure authentication powered by Better Auth
           </div>
 
-          {/* Decorative Book Icon */}
           <BookOpen
             size={260}
             strokeWidth={0.6}
@@ -211,10 +198,8 @@ export default function LoginForm() {
           />
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="relative flex min-h-screen items-center justify-center px-4 py-12 sm:px-8 lg:px-12">
           <div className="w-full max-w-[440px]">
-            {/* Mobile brand */}
             <Link
               href="/"
               className="mb-10 inline-flex items-center gap-3 lg:hidden"
@@ -223,38 +208,39 @@ export default function LoginForm() {
                 <BookOpen size={22} />
               </span>
 
-              <span className="text-2xl font-extrabold tracking-tight text-slate-900">
-                Book<span className="text-indigo-600">Nook</span>
+              <span className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Book
+                <span className="text-indigo-600 dark:text-indigo-400">
+                  Nook
+                </span>
               </span>
             </Link>
 
-            {/* Header */}
             <div className="mb-9">
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400">
                 <LockKeyhole size={26} />
               </div>
 
-              <h2 className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+              <h2 className="text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
                 Welcome back!
               </h2>
 
-              <p className="mt-3 text-sm leading-7 text-slate-500">
+              <p className="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-400">
                 Sign in to continue your BookNook
                 reading journey.
               </p>
             </div>
 
-            {/* Google Login */}
             <button
               type="button"
               onClick={handleGoogleLogin}
               disabled={loading || googleLoading}
-              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50/50 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50/50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-indigo-500/40 dark:hover:bg-slate-800"
             >
               {googleLoading ? (
                 <Loader2
                   size={20}
-                  className="animate-spin text-indigo-600"
+                  className="animate-spin text-indigo-600 dark:text-indigo-400"
                 />
               ) : (
                 <svg
@@ -287,16 +273,14 @@ export default function LoginForm() {
                 : "Continue with Google"}
             </button>
 
-            {/* Divider */}
             <div className="my-8 flex items-center gap-4">
-              <div className="h-px flex-1 bg-slate-200" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 Or with email
               </span>
-              <div className="h-px flex-1 bg-slate-200" />
+              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700" />
             </div>
 
-            {/* Email Login */}
             <form
               onSubmit={handleLogin}
               className="space-y-5"
@@ -304,7 +288,7 @@ export default function LoginForm() {
               <div>
                 <label
                   htmlFor="login-email"
-                  className="mb-2 block text-sm font-semibold text-slate-700"
+                  className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300"
                 >
                   Email Address
                 </label>
@@ -312,7 +296,7 @@ export default function LoginForm() {
                 <div className="relative">
                   <Mail
                     size={19}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
                   />
 
                   <input
@@ -334,14 +318,14 @@ export default function LoginForm() {
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <label
                     htmlFor="login-password"
-                    className="text-sm font-semibold text-slate-700"
+                    className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                   >
                     Password
                   </label>
 
                   <Link
                     href="/forgot-password"
-                    className="text-xs font-semibold text-indigo-600 transition hover:text-indigo-700"
+                    className="text-xs font-semibold text-indigo-600 transition hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
                   >
                     Forgot Password?
                   </Link>
@@ -350,12 +334,14 @@ export default function LoginForm() {
                 <div className="relative">
                   <LockKeyhole
                     size={19}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
                   />
 
                   <input
                     id="login-password"
-                    type={showPassword ? "text" : "password"}
+                    type={
+                      showPassword ? "text" : "password"
+                    }
                     required
                     value={password}
                     onChange={(e) =>
@@ -376,7 +362,7 @@ export default function LoginForm() {
                         ? "Hide password"
                         : "Show password"
                     }
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-indigo-600"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-indigo-600 dark:text-slate-500 dark:hover:text-indigo-400"
                   >
                     {showPassword ? (
                       <EyeOff size={19} />
@@ -412,19 +398,17 @@ export default function LoginForm() {
               </button>
             </form>
 
-            {/* Register */}
-            <p className="mt-8 text-center text-sm text-slate-500">
+            <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
               New to BookNook?{" "}
               <Link
                 href={signupUrl}
-                className="font-bold text-indigo-600 transition hover:text-indigo-700"
+                className="font-bold text-indigo-600 transition hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
               >
                 Create an account
               </Link>
             </p>
 
-            {/* Security note */}
-            <div className="mt-9 flex items-center justify-center gap-2 border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
+            <div className="mt-9 flex items-center justify-center gap-2 border-t border-slate-200 pt-6 text-center text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500">
               <ShieldCheck size={16} />
               Your account is protected with secure authentication
             </div>

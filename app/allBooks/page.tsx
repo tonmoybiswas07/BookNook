@@ -1,7 +1,5 @@
 
-import { BookOpen } from "lucide-react";
 import AllBooksClient from "./AllBooksClient";
-
 
 export const instant = false;
 
@@ -55,7 +53,7 @@ export default async function AllBooksPage() {
   const books = await getBooks();
 
   return (
-    <main className="min-h-screen bg-[#f8f9fd]">
+    <main className="min-h-screen bg-[#f8f9fd] text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
       <AllBooksClient books={books} />
     </main>
   );

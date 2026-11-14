@@ -23,9 +23,7 @@ interface Props {
   books: Book[];
 }
 
-export default function AllBooksClient({
-  books,
-}: Props) {
+export default function AllBooksClient({ books }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All Books");
   const [sort, setSort] = useState("default");
@@ -91,10 +89,12 @@ export default function AllBooksClient({
     setSort("default");
   };
 
+  const inputClass =
+    "w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 py-3.5 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-indigo-500 dark:focus:bg-slate-800 dark:focus:ring-indigo-500/20";
+
   return (
     <>
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-[#111633] text-white">
+      <section className="relative overflow-hidden bg-[#111633] text-white dark:bg-[#080d20]">
         <div className="pointer-events-none absolute -left-32 -top-40 h-[420px] w-[420px] rounded-full bg-indigo-600/20 blur-[100px]" />
         <div className="pointer-events-none absolute -bottom-48 right-0 h-[420px] w-[420px] rounded-full bg-violet-600/20 blur-[100px]" />
 
@@ -142,7 +142,6 @@ export default function AllBooksClient({
             </div>
           </div>
 
-          {/* Library Stats */}
           <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:max-w-2xl">
             {[
               {
@@ -163,7 +162,7 @@ export default function AllBooksClient({
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm"
+                className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm dark:border-indigo-400/10 dark:bg-white/[0.04]"
               >
                 <stat.icon
                   size={20}
@@ -183,36 +182,33 @@ export default function AllBooksClient({
         </div>
       </section>
 
-      {/* COLLECTION */}
       <section
         id="collection"
         className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20"
       >
         <div className="mb-9 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600">
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
               Browse the Shelves
             </span>
 
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white sm:text-4xl">
               Explore Our Library
             </h2>
 
-            <p className="mt-3 text-sm text-slate-500">
+            <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
               A world of knowledge, one book at a time.
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-xs font-bold text-indigo-600">
+          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-xs font-bold text-indigo-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400">
             <BookOpen size={15} />
             {filteredBooks.length} Books Found
           </div>
         </div>
 
-        {/* FILTER PANEL */}
-        <div className="mb-8 rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <div className="mb-8 rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm transition-colors dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20 sm:p-6">
           <div className="grid gap-4 lg:grid-cols-[1fr_220px_200px]">
-            {/* Search */}
             <div className="relative">
               <Search
                 size={19}
@@ -227,11 +223,10 @@ export default function AllBooksClient({
                 }
                 placeholder="Search books, authors, categories..."
                 aria-label="Search books"
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-12 pr-4 text-sm text-slate-900 outline-none transition focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-500/10"
+                className={`${inputClass} pl-12 pr-4 placeholder:text-slate-400 dark:placeholder:text-slate-500`}
               />
             </div>
 
-            {/* Category */}
             <div className="relative">
               <SlidersHorizontal
                 size={17}
@@ -244,7 +239,7 @@ export default function AllBooksClient({
                   setCategory(e.target.value)
                 }
                 aria-label="Filter by category"
-                className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 py-3.5 pl-11 pr-10 text-sm font-medium text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10"
+                className={`${inputClass} pl-11 pr-10 font-medium`}
               >
                 {categories.map((item) => (
                   <option key={item} value={item}>
@@ -259,7 +254,6 @@ export default function AllBooksClient({
               />
             </div>
 
-            {/* Sort */}
             <div className="relative">
               <select
                 value={sort}
@@ -267,7 +261,7 @@ export default function AllBooksClient({
                   setSort(e.target.value)
                 }
                 aria-label="Sort books"
-                className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-10 text-sm font-medium text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/10"
+                className={`${inputClass} px-4 pr-10 font-medium`}
               >
                 <option value="default">
                   Default Order
@@ -291,7 +285,6 @@ export default function AllBooksClient({
           </div>
         </div>
 
-        {/* Category Chips */}
         <div className="mb-9 flex flex-wrap gap-2">
           {categories.map((item) => {
             const active = category === item;
@@ -304,7 +297,7 @@ export default function AllBooksClient({
                 className={`rounded-full border px-5 py-2.5 text-xs font-semibold transition-all duration-200 ${
                   active
                     ? "border-indigo-600 bg-indigo-600 text-white shadow-md shadow-indigo-500/20"
-                    : "border-slate-200 bg-white text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
+                    : "border-slate-200 bg-white text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-indigo-500/40 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400"
                 }`}
               >
                 {item}
@@ -313,7 +306,6 @@ export default function AllBooksClient({
           })}
         </div>
 
-        {/* BOOKS GRID */}
         {filteredBooks.length > 0 ? (
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8">
             {filteredBooks.map((book) => (
@@ -324,19 +316,19 @@ export default function AllBooksClient({
             ))}
           </div>
         ) : (
-          <div className="rounded-[32px] border border-dashed border-slate-200 bg-white px-6 py-20 text-center shadow-sm">
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-indigo-50">
+          <div className="rounded-[32px] border border-dashed border-slate-200 bg-white px-6 py-20 text-center shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/20">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-indigo-50 dark:bg-indigo-500/10">
               <BookOpen
                 size={35}
-                className="text-indigo-300"
+                className="text-indigo-300 dark:text-indigo-400"
               />
             </div>
 
-            <h3 className="mt-6 text-xl font-bold text-slate-900">
+            <h3 className="mt-6 text-xl font-bold text-slate-900 dark:text-white">
               No books found
             </h3>
 
-            <p className="mx-auto mt-3 max-w-sm text-sm leading-7 text-slate-500">
+            <p className="mx-auto mt-3 max-w-sm text-sm leading-7 text-slate-500 dark:text-slate-400">
               {books.length === 0
                 ? "Our library is currently empty. Be the first to contribute a book!"
                 : "We couldn't find any books matching your search. Try another keyword or category."}
@@ -344,6 +336,7 @@ export default function AllBooksClient({
 
             {books.length > 0 ? (
               <button
+                type="button"
                 onClick={clearFilters}
                 className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700"
               >
@@ -362,7 +355,6 @@ export default function AllBooksClient({
           </div>
         )}
 
-        {/* Bottom CTA */}
         {books.length > 0 && (
           <div className="mt-16 flex flex-col items-start justify-between gap-6 rounded-[28px] bg-gradient-to-r from-indigo-600 to-violet-600 p-8 text-white sm:flex-row sm:items-center sm:p-10">
             <div>

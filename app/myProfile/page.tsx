@@ -4,6 +4,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   BookOpen,
   BookMarked,
@@ -24,9 +25,43 @@ import {
   Copy,
   Check,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { authClient } from "@/app/lib/auth-client";
+
+const quickActions = [
+  {
+    title: "My Books",
+    description: "Manage your book collection",
+    href: "/my-books",
+    icon: BookMarked,
+    iconBg: "bg-indigo-50 dark:bg-indigo-500/10",
+    iconColor: "text-indigo-600 dark:text-indigo-400",
+  },
+  {
+    title: "My Borrowings",
+    description: "Track your borrowed books",
+    href: "/myBorrow",
+    icon: Bookmark,
+    iconBg: "bg-violet-50 dark:bg-violet-500/10",
+    iconColor: "text-violet-600 dark:text-violet-400",
+  },
+  {
+    title: "Add New Book",
+    description: "Share a book with readers",
+    href: "/add-books",
+    icon: BookOpen,
+    iconBg: "bg-amber-50 dark:bg-amber-500/10",
+    iconColor: "text-amber-600 dark:text-amber-400",
+  },
+  {
+    title: "Explore Books",
+    description: "Find your next favorite",
+    href: "/allBooks",
+    icon: LibraryBig,
+    iconBg: "bg-emerald-50 dark:bg-emerald-500/10",
+    iconColor: "text-emerald-600 dark:text-emerald-400",
+  },
+];
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -87,30 +122,30 @@ export default function ProfilePage() {
 
   if (isPending) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center">
-        <Loader2 className="h-9 w-9 animate-spin text-indigo-600" />
+      <div className="flex min-h-[80vh] items-center justify-center bg-[#f7f8fc] dark:bg-slate-950">
+        <Loader2 className="h-9 w-9 animate-spin text-indigo-600 dark:text-indigo-400" />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <main className="min-h-[75vh] flex flex-col items-center justify-center px-4 text-center">
-        <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-indigo-50 text-indigo-600">
+      <main className="flex min-h-[75vh] flex-col items-center justify-center bg-[#f7f8fc] px-4 text-center dark:bg-slate-950">
+        <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400">
           <UserRound className="h-9 w-9" />
         </div>
 
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
           Your library awaits
         </h1>
 
-        <p className="mt-2 max-w-sm text-sm text-slate-500">
+        <p className="mt-2 max-w-sm text-sm text-slate-500 dark:text-slate-400">
           Sign in to view your profile and manage your reading journey.
         </p>
 
         <Link
           href="/Authentication/signin?callbackUrl=%2Fprofile"
-          className="mt-6 rounded-xl bg-indigo-600 px-7 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700"
+          className="mt-6 rounded-xl bg-indigo-600 px-7 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 dark:hover:bg-indigo-500"
         >
           Sign In to Continue
         </Link>
@@ -119,31 +154,30 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f8fc] pb-20">
+    <main className="min-h-screen bg-[#f7f8fc] pb-20 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
       <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-
-        {/* Breadcrumb */}
-        <div className="mb-7 flex items-center gap-2 text-xs font-medium text-slate-400">
-          <Link href="/" className="hover:text-indigo-600">
+        <div className="mb-7 flex items-center gap-2 text-xs font-medium text-slate-400 dark:text-slate-500">
+          <Link
+            href="/"
+            className="transition hover:text-indigo-600 dark:hover:text-indigo-400"
+          >
             Home
           </Link>
           <ChevronRight className="h-3.5 w-3.5" />
-          <span className="text-slate-700">My Profile</span>
+          <span className="text-slate-700 dark:text-slate-300">
+            My Profile
+          </span>
         </div>
 
-        {/* Profile Hero */}
-        <div className="relative overflow-hidden rounded-[30px] bg-[#101b3d] text-white shadow-xl shadow-indigo-950/10">
-
-          {/* Decorative Background */}
+        <div className="relative overflow-hidden rounded-[30px] bg-[#101b3d] text-white shadow-xl shadow-indigo-950/10 dark:bg-[#0b122b] dark:shadow-black/30">
           <div className="pointer-events-none absolute -right-20 -top-36 h-96 w-96 rounded-full bg-violet-500/25 blur-3xl" />
-          <div className="pointer-events-none absolute left-1/3 bottom-[-180px] h-80 w-80 rounded-full bg-indigo-500/30 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-[-180px] left-1/3 h-80 w-80 rounded-full bg-indigo-500/30 blur-3xl" />
 
           <div className="pointer-events-none absolute right-10 top-8 hidden rotate-[-20deg] opacity-[0.07] md:block">
             <BookOpen className="h-64 w-64" strokeWidth={0.8} />
           </div>
 
           <div className="relative z-10 px-6 pb-8 pt-8 sm:px-10 sm:pb-10 sm:pt-10">
-
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-indigo-100 backdrop-blur">
                 <Sparkles className="h-3.5 w-3.5 text-amber-300" />
@@ -157,8 +191,6 @@ export default function ProfilePage() {
             </div>
 
             <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-end">
-
-              {/* Avatar */}
               <div className="relative shrink-0">
                 <div className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-[28px] border-4 border-white/20 bg-gradient-to-br from-indigo-400 to-violet-600 shadow-2xl sm:h-32 sm:w-32">
                   {user.image ? (
@@ -177,12 +209,11 @@ export default function ProfilePage() {
                   )}
                 </div>
 
-                <span className="absolute -bottom-2 -right-2 flex h-10 w-10 items-center justify-center rounded-2xl border-4 border-[#101b3d] bg-indigo-500 shadow-lg">
+                <span className="absolute -bottom-2 -right-2 flex h-10 w-10 items-center justify-center rounded-2xl border-4 border-[#101b3d] bg-indigo-500 shadow-lg dark:border-[#0b122b]">
                   <BookOpen className="h-4 w-4 text-white" />
                 </span>
               </div>
 
-              {/* Profile Info */}
               <div className="min-w-0 flex-1 pb-1">
                 <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-indigo-200">
                   Your personal library space
@@ -221,36 +252,31 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="mt-8 grid grid-cols-1 gap-7 lg:grid-cols-12">
-
-          {/* Left Column */}
           <div className="space-y-7 lg:col-span-8">
-
-            {/* Welcome Card */}
-            <div className="relative overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-violet-50 p-7 sm:p-8">
-              <div className="absolute -right-6 -bottom-8 text-indigo-100">
+            <div className="relative overflow-hidden rounded-3xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-violet-50 p-7 dark:border-indigo-500/20 dark:from-indigo-500/10 dark:via-slate-900 dark:to-violet-500/10 sm:p-8">
+              <div className="absolute -bottom-8 -right-6 text-indigo-100 dark:text-indigo-500/10">
                 <LibraryBig className="h-44 w-44" strokeWidth={1} />
               </div>
 
               <div className="relative z-10 max-w-lg">
-                <span className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-indigo-600">
+                <span className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
                   <Sparkles className="h-4 w-4" />
                   Your Reading Journey
                 </span>
 
-                <h2 className="text-2xl font-bold tracking-tight text-slate-900">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                   Every great story starts with a page.
                 </h2>
 
-                <p className="mt-3 text-sm leading-7 text-slate-500">
-                  Discover new worlds, revisit your favorites, and
-                  keep your personal collection organized with BookNook.
+                <p className="mt-3 text-sm leading-7 text-slate-500 dark:text-slate-400">
+                  Discover new worlds, revisit your favorites, and keep
+                  your personal collection organized with BookNook.
                 </p>
 
                 <Link
                   href="/allBooks"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-800"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-indigo-600 transition hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
                 >
                   Find your next read
                   <ArrowUpRight className="h-4 w-4" />
@@ -258,38 +284,36 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Account Information */}
-            <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
+            <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/10 sm:p-8">
               <div className="mb-7 flex items-center justify-between gap-3">
                 <div>
-                  <h2 className="text-lg font-bold text-slate-900">
+                  <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                     Personal Information
                   </h2>
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                     Your BookNook account details
                   </p>
                 </div>
 
-                <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600">
+                <div className="rounded-xl bg-indigo-50 p-3 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400">
                   <UserRound className="h-5 w-5" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-
-                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5">
-                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5 dark:border-slate-700/70 dark:bg-slate-800/60">
+                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     <UserRound className="h-4 w-4" />
                     Full Name
                   </div>
-                  <p className="break-words text-sm font-semibold text-slate-800">
+                  <p className="break-words text-sm font-semibold text-slate-800 dark:text-slate-100">
                     {user.name || "Not provided"}
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5">
+                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5 dark:border-slate-700/70 dark:bg-slate-800/60">
                   <div className="mb-3 flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                       <Mail className="h-4 w-4" />
                       Email Address
                     </span>
@@ -298,7 +322,7 @@ export default function ProfilePage() {
                       type="button"
                       onClick={copyEmail}
                       aria-label="Copy email"
-                      className="text-slate-400 transition hover:text-indigo-600"
+                      className="text-slate-400 transition hover:text-indigo-600 dark:text-slate-500 dark:hover:text-indigo-400"
                     >
                       {copied ? (
                         <Check className="h-4 w-4 text-emerald-500" />
@@ -308,29 +332,27 @@ export default function ProfilePage() {
                     </button>
                   </div>
 
-                  <p className="break-all text-sm font-semibold text-slate-800">
+                  <p className="break-all text-sm font-semibold text-slate-800 dark:text-slate-100">
                     {user.email}
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5">
-                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5 dark:border-slate-700/70 dark:bg-slate-800/60">
+                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     <CalendarDays className="h-4 w-4" />
                     Member Since
                   </div>
-
-                  <p className="text-sm font-semibold text-slate-800">
+                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                     {joinedDate}
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5">
-                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="rounded-2xl border border-slate-100 bg-slate-50/70 p-5 dark:border-slate-700/70 dark:bg-slate-800/60">
+                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     <Fingerprint className="h-4 w-4" />
                     Account Status
                   </div>
-
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-600">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
                     <CheckCircle2 className="h-4 w-4" />
                     Active
                   </span>
@@ -338,75 +360,43 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Quick Actions */}
-            <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
+            <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/10 sm:p-8">
               <div className="mb-6">
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                   Your Library Hub
                 </h2>
-                <p className="mt-1 text-xs text-slate-400">
+                <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                   Everything you need, all in one place
                 </p>
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {[
-                  {
-                    title: "My Books",
-                    description: "Manage your book collection",
-                    href: "/my-books",
-                    icon: BookMarked,
-                    iconBg: "bg-indigo-50",
-                    iconColor: "text-indigo-600",
-                  },
-                  {
-                    title: "My Borrowings",
-                    description: "Track your borrowed books",
-                    href: "/myBorrow",
-                    icon: Bookmark,
-                    iconBg: "bg-violet-50",
-                    iconColor: "text-violet-600",
-                  },
-                  {
-                    title: "Add New Book",
-                    description: "Share a book with readers",
-                    href: "/add-books",
-                    icon: BookOpen,
-                    iconBg: "bg-amber-50",
-                    iconColor: "text-amber-600",
-                  },
-                  {
-                    title: "Explore Books",
-                    description: "Find your next favorite",
-                    href: "/allBooks",
-                    icon: LibraryBig,
-                    iconBg: "bg-emerald-50",
-                    iconColor: "text-emerald-600",
-                  },
-                ].map((item) => {
+                {quickActions.map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <Link
                       key={item.title}
                       href={item.href}
-                      className="group flex items-center gap-4 rounded-2xl border border-slate-100 p-4 transition-all hover:border-indigo-200 hover:bg-indigo-50/30 hover:shadow-sm"
+                      className="group flex items-center gap-4 rounded-2xl border border-slate-100 p-4 transition-all hover:border-indigo-200 hover:bg-indigo-50/30 hover:shadow-sm dark:border-slate-700 dark:bg-slate-800/30 dark:hover:border-indigo-500/30 dark:hover:bg-indigo-500/10"
                     >
-                      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${item.iconBg} ${item.iconColor}`}>
+                      <div
+                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${item.iconBg} ${item.iconColor}`}
+                      >
                         <Icon className="h-5 w-5" />
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-sm font-bold text-slate-800">
+                        <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">
                           {item.title}
                         </h3>
 
-                        <p className="mt-1 text-xs text-slate-400">
+                        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                           {item.description}
                         </p>
                       </div>
 
-                      <ChevronRight className="h-4 w-4 shrink-0 text-slate-300 transition group-hover:translate-x-1 group-hover:text-indigo-600" />
+                      <ChevronRight className="h-4 w-4 shrink-0 text-slate-300 transition group-hover:translate-x-1 group-hover:text-indigo-600 dark:text-slate-500 dark:group-hover:text-indigo-400" />
                     </Link>
                   );
                 })}
@@ -414,11 +404,8 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Right Column */}
           <div className="space-y-7 lg:col-span-4">
-
-            {/* Membership Card */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 p-7 text-white shadow-xl shadow-indigo-200/50">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800 p-7 text-white shadow-xl shadow-indigo-200/50 dark:from-indigo-700 dark:via-indigo-900 dark:to-violet-950 dark:shadow-black/30">
               <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full border-[28px] border-white/5" />
               <div className="absolute -bottom-16 -left-10 h-40 w-40 rounded-full bg-violet-400/20 blur-2xl" />
 
@@ -430,7 +417,6 @@ export default function ProfilePage() {
                       BookNook
                     </span>
                   </div>
-
                   <Sparkles className="h-5 w-5 text-amber-300" />
                 </div>
 
@@ -447,9 +433,7 @@ export default function ProfilePage() {
                     <p className="text-[10px] uppercase tracking-widest text-indigo-200">
                       Membership
                     </p>
-                    <p className="mt-1 text-sm font-bold">
-                      Reader
-                    </p>
+                    <p className="mt-1 text-sm font-bold">Reader</p>
                   </div>
 
                   <div className="rounded-lg border border-white/20 bg-white/10 p-2.5">
@@ -459,74 +443,71 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Account Security */}
-            <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
+            <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/10">
               <div className="mb-5 flex items-center gap-3">
-                <div className="rounded-xl bg-emerald-50 p-2.5 text-emerald-600">
+                <div className="rounded-xl bg-emerald-50 p-2.5 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                     Account Overview
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-400 dark:text-slate-500">
                     Your membership details
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-4 border-t border-slate-100 pt-5">
+              <div className="space-y-4 border-t border-slate-100 pt-5 dark:border-slate-800">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     Account
                   </span>
-                  <span className="text-xs font-semibold text-emerald-600">
+                  <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                     Active
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     Member since
                   </span>
-                  <span className="text-xs font-semibold text-slate-800">
+                  <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                     {joinedDate}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     Platform
                   </span>
-                  <span className="text-xs font-semibold text-slate-800">
+                  <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                     BookNook
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Reading Quote */}
-            <div className="rounded-3xl border border-amber-100 bg-[#fffaf0] p-7">
-              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-100 text-amber-600">
+            <div className="rounded-3xl border border-amber-100 bg-[#fffaf0] p-7 dark:border-amber-500/20 dark:bg-amber-500/5">
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-100 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
                 <Sparkles className="h-5 w-5" />
               </div>
 
-              <p className="text-lg font-semibold italic leading-8 text-slate-800">
+              <p className="text-lg font-semibold italic leading-8 text-slate-800 dark:text-slate-200">
                 “A reader lives a thousand lives before they die.”
               </p>
 
-              <p className="mt-4 text-xs font-semibold text-amber-700">
+              <p className="mt-4 text-xs font-semibold text-amber-700 dark:text-amber-400">
                 — George R. R. Martin
               </p>
             </div>
 
-            {/* Sign Out */}
             <button
               type="button"
               onClick={handleLogout}
               disabled={loggingOut}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-rose-100 bg-white px-5 py-4 text-sm font-bold text-rose-600 transition hover:border-rose-200 hover:bg-rose-50 disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-rose-100 bg-white px-5 py-4 text-sm font-bold text-rose-600 transition hover:border-rose-200 hover:bg-rose-50 disabled:opacity-50 dark:border-rose-500/20 dark:bg-slate-900 dark:text-rose-400 dark:hover:border-rose-500/40 dark:hover:bg-rose-500/10"
             >
               {loggingOut ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -538,12 +519,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Bottom Footer */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-slate-200 pt-6 text-xs text-slate-400 sm:flex-row">
-          <span>
-            Your stories. Your space. Your BookNook.
-          </span>
-
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-slate-200 pt-6 text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500 sm:flex-row">
+          <span>Your stories. Your space. Your BookNook.</span>
           <span className="flex items-center gap-2">
             <Clock3 className="h-3.5 w-3.5" />
             Happy reading!

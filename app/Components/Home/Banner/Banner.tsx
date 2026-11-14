@@ -71,7 +71,7 @@ export default function Banner() {
   return (
     <section
       aria-label="BookNook featured books"
-      className="relative w-full overflow-hidden bg-[#11152e]"
+      className="relative w-full overflow-hidden bg-[#172044] transition-colors duration-300 dark:bg-[#080d20]"
     >
       <Swiper
         modules={[
@@ -110,7 +110,6 @@ export default function Banner() {
             key={slide.id}
             className="relative h-full w-full"
           >
-            {/* Background Image */}
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
@@ -118,48 +117,46 @@ export default function Banner() {
               }}
             />
 
-            {/* Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0b1029]/95 via-[#10152f]/85 to-[#10152f]/35" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b1029]/75 via-transparent to-[#0b1029]/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0b1029]/90 via-[#10152f]/75 to-[#10152f]/25 dark:from-[#050918]/98 dark:via-[#080d20]/90 dark:to-[#080d20]/45" />
 
-            {/* Decorative Glow */}
-            <div className="pointer-events-none absolute -left-32 top-1/3 h-80 w-80 rounded-full bg-indigo-500/20 blur-[110px]" />
-            <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 rounded-full bg-violet-500/10 blur-[110px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b1029]/70 via-transparent to-[#0b1029]/15 dark:from-[#050918]/90 dark:via-transparent dark:to-[#050918]/35" />
 
-            {/* Slide Content */}
+            <div className="pointer-events-none absolute -left-32 top-1/3 h-80 w-80 rounded-full bg-indigo-500/15 blur-[110px] dark:bg-indigo-500/25" />
+
+            <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 rounded-full bg-violet-500/10 blur-[110px] dark:bg-violet-500/20" />
+
             <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-4 pb-20 pt-12 sm:px-6 lg:px-8">
               <div className="max-w-3xl text-white">
-                {/* Eyebrow */}
-                <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md">
+                <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md dark:border-indigo-400/20 dark:bg-indigo-400/10">
                   <Sparkles
                     size={15}
-                    className="text-indigo-300"
+                    className="text-indigo-300 dark:text-indigo-300"
                   />
+
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-100 sm:text-xs">
                     {slide.eyebrow}
                   </span>
                 </div>
 
-                {/* Title */}
                 <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
                   {slide.title}
-                  <span className="mt-2 block bg-gradient-to-r from-indigo-300 via-violet-300 to-pink-300 bg-clip-text text-transparent">
+
+                  <span className="mt-2 block bg-gradient-to-r from-indigo-300 via-violet-300 to-pink-300 bg-clip-text text-transparent dark:from-indigo-200 dark:via-violet-300 dark:to-pink-300">
                     {slide.highlight}
                   </span>
                 </h1>
 
-                {/* Description */}
-                <p className="mt-7 max-w-xl text-sm leading-7 text-slate-200/90 sm:text-base sm:leading-8 lg:text-lg">
+                <p className="mt-7 max-w-xl text-sm leading-7 text-slate-200/90 dark:text-slate-300 sm:text-base sm:leading-8 lg:text-lg">
                   {slide.description}
                 </p>
 
-                {/* CTA Buttons */}
                 <div className="mt-9 flex flex-wrap items-center gap-4">
                   <Link
                     href="/allBooks"
-                    className="group inline-flex items-center justify-center gap-3 rounded-2xl bg-indigo-600 px-6 py-4 text-sm font-bold text-white shadow-xl shadow-indigo-950/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-500 sm:px-7"
+                    className="group inline-flex items-center justify-center gap-3 rounded-2xl bg-indigo-600 px-6 py-4 text-sm font-bold text-white shadow-xl shadow-indigo-950/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600 sm:px-7"
                   >
                     {slide.label}
+
                     <ArrowRight
                       size={18}
                       className="transition-transform group-hover:translate-x-1"
@@ -168,10 +165,12 @@ export default function Banner() {
 
                   <Link
                     href="/add-books"
-                    className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/10 px-6 py-4 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/50 hover:bg-white/20 sm:px-7"
+                    className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/10 px-6 py-4 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/50 hover:bg-white/20 dark:border-indigo-300/25 dark:bg-indigo-300/10 dark:hover:border-indigo-300/50 dark:hover:bg-indigo-300/20 sm:px-7"
                   >
                     <BookOpen size={18} />
+
                     Share a Book
+
                     <ArrowUpRight
                       size={16}
                       className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
@@ -179,8 +178,7 @@ export default function Banner() {
                   </Link>
                 </div>
 
-                {/* Feature Tags */}
-                <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-medium text-slate-300/90">
+                <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-medium text-slate-300/90 dark:text-slate-300">
                   <span className="inline-flex items-center gap-2">
                     <BookOpen
                       size={16}
@@ -211,10 +209,8 @@ export default function Banner() {
         ))}
       </Swiper>
 
-      {/* Bottom Navigation */}
       <div className="pointer-events-none absolute bottom-0 left-0 z-20 w-full">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 pb-7 sm:px-6 lg:px-8 lg:pb-10">
-          {/* Slide Count */}
           <div className="pointer-events-auto flex items-center gap-3 text-white">
             <span className="text-lg font-extrabold tabular-nums">
               {String(activeSlide + 1).padStart(2, "0")}
@@ -227,16 +223,16 @@ export default function Banner() {
             </span>
           </div>
 
-          {/* Pagination */}
           <div className="booknook-banner-pagination pointer-events-auto flex items-center justify-center gap-2" />
 
-          {/* Arrows */}
           <div className="pointer-events-auto flex items-center gap-2">
             <button
               type="button"
               aria-label="Previous slide"
-              onClick={() => swiperRef.current?.slidePrev()}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md transition hover:border-indigo-400 hover:bg-indigo-600"
+              onClick={() =>
+                swiperRef.current?.slidePrev()
+              }
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md transition hover:border-indigo-400 hover:bg-indigo-600 dark:border-indigo-300/25 dark:bg-indigo-300/10 dark:hover:border-indigo-400 dark:hover:bg-indigo-600"
             >
               <ChevronLeft size={20} />
             </button>
@@ -244,8 +240,10 @@ export default function Banner() {
             <button
               type="button"
               aria-label="Next slide"
-              onClick={() => swiperRef.current?.slideNext()}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md transition hover:border-indigo-400 hover:bg-indigo-600"
+              onClick={() =>
+                swiperRef.current?.slideNext()
+              }
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-md transition hover:border-indigo-400 hover:bg-indigo-600 dark:border-indigo-300/25 dark:bg-indigo-300/10 dark:hover:border-indigo-400 dark:hover:bg-indigo-600"
             >
               <ChevronRight size={20} />
             </button>
